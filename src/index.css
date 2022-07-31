@@ -1,0 +1,98 @@
+  :root {
+    --salmon: #f5678e;
+    --yellow: #fccb9b;
+    --light-purple: #c876c8;
+    --green: #49a271;
+    --dark-purple: #5d4a8f;
+  }
+  
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 2rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, var(--salmon), var(--yellow), var(--light-purple), var(--green), var(--dark-purple))
+}
+
+button,
+a {
+  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+link {
+  text-decoration: none;
+}
+
+.header {
+  width: 100%;
+  background-color: var(--dark-purple);
+  color: #fff;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-logo {
+  font-size: 3rem;
+}
+
+.show-instructions-btn {
+  background-color: transparent;
+  border: none;
+  margin-left: 2rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--yellow);
+}
+
+.fa-circle-info {
+  padding-left: .2rem;
+}
+
+.show-instructions-btn:hover {
+  cursor: pointer;
+  border-bottom: 1px solid var(--yellow);
+}
+
+.made-by {
+  display: flex;
+  flex-direction: column;
+}
+
+.react-link,
+.github-link {
+  color: var(--yellow)
+}
+
+.react-link:hover,
+.github-link:hover {
+  filter: brightness(.9);
+}
+
+.react-link:hover .fa-react {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
