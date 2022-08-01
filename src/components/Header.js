@@ -14,7 +14,7 @@ export default function Header() {
         </span>
         <span className='made-by-bottom'>
           by 
-          <a href='https://github.com/laoWaiRay' className='github-link'> laoWaiRay <i class="fa-brands fa-github"/> </a>
+          <a href='https://github.com/laoWaiRay' className='github-link'> laoWaiRay <i className="fa-brands fa-github"/> </a>
         </span>
       </div>
     </header>

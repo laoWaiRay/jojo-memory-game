@@ -96,3 +96,8 @@ link {
     transform: rotate(360deg);
   }
 }
+
+img {
+  width: 10rem;
+  height: 10rem;
+}
