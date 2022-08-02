@@ -28,6 +28,7 @@ export default function Game() {
   const [displayedCards, setDisplayedCards] = useState([]);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   // This function shuffles an array (destructive)
   const shuffle = (array) => {
@@ -68,13 +69,20 @@ export default function Game() {
     }
   }
 
-  const updateDisplay = () => {      
-    const displayedCards = getDisplayedCards();
-    setDisplayedCards(displayedCards);
+  const updateDisplay = (e) => {  
+    if (isMobile) {
+      if (e.detail === 2) {
+        const displayedCards = getDisplayedCards();
+        setDisplayedCards(displayedCards);
+      }
+    } else {
+      const displayedCards = getDisplayedCards();
+      setDisplayedCards(displayedCards);
+    }
   }
 
   useEffect(() => {
-    updateDisplay()
+    updateDisplay({detail: 2})
   }, [])
 
   useEffect(() => {
@@ -104,7 +112,14 @@ export default function Game() {
     }
     cards.forEach((card) => {
       card.name = card.querySelector('.card-heading--front').innerText;
-      card.addEventListener('click', checkIsSeen)
+      if (isMobile) {
+        card.addEventListener('click', () => {
+          card.classList.toggle('active')
+        })
+        card.addEventListener('dblclick', checkIsSeen)
+      } else {
+        card.addEventListener('click', checkIsSeen)
+      }
     })
 
     // For mobile dragging
@@ -120,22 +135,22 @@ export default function Game() {
     let currentCardElementIndex = 0;
         
     function checkDirection() {
-      if (touchendX < touchstartX && Math.abs(touchendX - touchstartX) > 100) {
+      if (touchendX < touchstartX && Math.abs(touchendX - touchstartX) > 1) {
         console.log('swiped left!')
         if(currentCardElementIndex < 2) {
           currentCardElementIndex++;
         }
         let nextCardElement = cardElements[currentCardElementIndex];
         console.log(nextCardElement)
-        nextCardElement.scrollIntoView()
+        nextCardElement.scrollIntoView({behavior: "smooth"})
       };
-      if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > 100) {
+      if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > 1) {
         console.log('swiped right!')
         if(currentCardElementIndex > 0) {
           currentCardElementIndex--;
         }
         let nextCardElement = cardElements[currentCardElementIndex];
-        nextCardElement.scrollIntoView()
+        nextCardElement.scrollIntoView({behavior: "smooth"})
       }
     }
 
@@ -151,7 +166,6 @@ export default function Game() {
     }
 
     container.addEventListener('touchstart', touchStart);
-
     container.addEventListener('touchend', touchEnd);
   
     

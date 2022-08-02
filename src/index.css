@@ -168,7 +168,13 @@ link {
   border-radius: 2rem;
 }
 
-.card:hover .card-inner {
+@media only screen and (min-width: 630px) {
+  .card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+.card.active .card-inner {
   transform: rotateY(180deg);
 }
 
@@ -360,7 +366,6 @@ link {
     padding: 0;
     overflow-y: hidden;  
     gap: 3rem;  
-
   }
 
   .card{
