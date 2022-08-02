@@ -1,11 +1,11 @@
 import React from 'react'
 
-export default function Header() {
+export default function Header(props) {
   return (
     <header className='header'>
       <div className='header-heading'>
         <span className='header-logo'>JJBA Memory Game</span>
-        <button className='show-instructions-btn'>instructions <i className="fa-solid fa-circle-info"/> </button>
+        <button className='show-instructions-btn' onClick={props.toggleModal}>instructions <i className="fa-solid fa-circle-info"/> </button>
       </div>
       <div className='made-by'>
         <span className='made-by-top'>

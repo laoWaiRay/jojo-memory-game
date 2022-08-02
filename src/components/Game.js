@@ -1,12 +1,14 @@
+import { click } from '@testing-library/user-event/dist/click';
 import React, { useState, useEffect } from 'react'
 import stands from '../data'
 import Card from './Card'
+import Scorekeeper from './Scorekeeper';
 
 /* Importing images and gifs using require.context because of how webpack works */
 
 function importAll(r) {
   let images = {};
-  r.keys().map((item, index) => { 
+  r.keys().map((item) => { 
     return images[item.replace('./', '')] = r(item);
   });
   return images
@@ -24,6 +26,8 @@ export default function Game() {
   const [unseenStands, setUnseenStands] = useState([...stands]);
   const [seenStands, setSeenStands] = useState([]);
   const [displayedCards, setDisplayedCards] = useState([]);
+  const [score, setScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   // This function shuffles an array (destructive)
   const shuffle = (array) => {
@@ -53,7 +57,6 @@ export default function Game() {
       return [unseenStandsCopy[0], unseenStandsCopy[1], unseenStandsCopy[2]]
     } else if (unseenStands.length === 1) {
       shuffle(seenStandsCopy);
-      console.log('unseenstands length = 1')
       return shuffle([unseenStandsCopy[0], seenStandsCopy[0], seenStandsCopy[1]])
     } else if (unseenStands.length === 0) {
       console.log('Congratulations you win!')
@@ -65,45 +68,72 @@ export default function Game() {
     }
   }
 
-  // Problem : this causes infinite loops
-  const updateData = () => {      
-      const displayedCards = getDisplayedCards();
-
-      console.log('this code runs')
-      console.log('displayed: ', displayedCards)
-      setDisplayedCards(displayedCards);
-
-      setUnseenStands((unseenStands) => {
-        let newUnseenStands = [...unseenStands];
-        newUnseenStands = newUnseenStands.filter((stand) => stand.name !== displayedCards[0].name && stand.name !== displayedCards[1].name && stand.name !== displayedCards[2].name)
-        console.log('unseen: ', newUnseenStands)
-        return newUnseenStands
-      });
-
-      setSeenStands((seenStands) => {
-        const seenStandNames = seenStands.map((stand) => stand.name);
-        const newDisplayedCards = displayedCards.filter((card) => {
-          return (!seenStandNames.includes(card.name))
-        })
-        console.log('seen: ', [...seenStands, ...newDisplayedCards])
-        return [...seenStands, ...newDisplayedCards]
-      })
+  const updateDisplay = () => {      
+    const displayedCards = getDisplayedCards();
+    setDisplayedCards(displayedCards);
   }
 
-  // To Do: Update the displayed cards function for turns past the first turn
+  useEffect(() => {
+    updateDisplay()
+  }, [])
+
+  useEffect(() => {
+    const cards = document.querySelectorAll('.card');
+    const checkIsSeen = function(e) {
+      const clickedCardName = this.name;
+      const seenStandNames = seenStands.map((stand) => stand.name);
+
+      if (seenStandNames.includes(clickedCardName)) {
+        console.log('Already clicked!');
+        setBestScore(score);
+        setScore(0);
+        setUnseenStands((unseenStands) => {
+          return [...unseenStands, ...seenStands];
+        })
+        setSeenStands([]);
+      } else {
+        const clickedCard = displayedCards.find((card) => card.name === clickedCardName)
+        setSeenStands((seenStands) => {
+          return [...seenStands, clickedCard]
+        });
+        setUnseenStands((unseenStands) => {
+          return unseenStands.filter((stand) => stand.name !== clickedCard.name)
+        })
+        setScore((score) => score + 1)
+      }
+    }
+    cards.forEach((card) => {
+      card.name = card.querySelector('.card-heading--front').innerText;
+      card.addEventListener('click', checkIsSeen)
+    })
+
+    return () => {
+      cards.forEach((card) => {
+        card.removeEventListener('click', checkIsSeen)
+      })
+    }
+  }, [displayedCards])
 
   return (
     <div className='game-container'>
-      {displayedCards.map((card) => {
-        return <Card 
-          key={card.name}
-          stand={card}
-          imgSrc={images[card.img]}
-          gifSrc={gifs[card.gif]}
-        />
-      })}
-      
-      <button onClick={updateData}>Next Turn</button>
+      <Scorekeeper
+        score={score}
+        bestScore={bestScore}
+      />
+      <div className='card-container'>
+        {displayedCards.map((card) => {
+          return <Card 
+            onClick={updateDisplay}
+            key={card.name}
+            stand={card}
+            imgSrc={images[card.img]}
+            gifSrc={gifs[card.gif]}
+            descBold={card.descBold}
+            desc1={card.desc1}
+            desc2={card.desc2}
+          />
+        })}
+      </div>
     </div>
   )
 }
