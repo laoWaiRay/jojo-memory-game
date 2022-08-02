@@ -111,11 +111,57 @@ export default function Game() {
     const card0 = document.getElementById('card-0');
     const card1 = document.getElementById('card-1');
     const card2 = document.getElementById('card-2');
+    const cardElements = [card0, card1, card2];
+
+    const container = document.querySelector('.card-container');
+
+    let touchstartX = 0
+    let touchendX = 0
+    let currentCardElementIndex = 0;
+        
+    function checkDirection() {
+      if (touchendX < touchstartX && Math.abs(touchendX - touchstartX) > 100) {
+        console.log('swiped left!')
+        if(currentCardElementIndex < 2) {
+          currentCardElementIndex++;
+        }
+        let nextCardElement = cardElements[currentCardElementIndex];
+        console.log(nextCardElement)
+        nextCardElement.scrollIntoView()
+      };
+      if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > 100) {
+        console.log('swiped right!')
+        if(currentCardElementIndex > 0) {
+          currentCardElementIndex--;
+        }
+        let nextCardElement = cardElements[currentCardElementIndex];
+        nextCardElement.scrollIntoView()
+      }
+    }
+
+    const touchStart = (e) => {
+      e.stopPropagation()
+      touchstartX = e.changedTouches[0].screenX;
+    }
+
+    const touchEnd = (e) => {
+      e.stopPropagation()
+      touchendX = e.changedTouches[0].screenX;
+      checkDirection()
+    }
+
+    container.addEventListener('touchstart', touchStart);
+
+    container.addEventListener('touchend', touchEnd);
+  
     
     return () => {
       cards.forEach((card) => {
         card.removeEventListener('click', checkIsSeen)
       })
+      container.removeEventListener('touchstart', touchStart);
+
+      container.removeEventListener('touchend', touchEnd);
     }
   }, [displayedCards])
 
