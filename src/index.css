@@ -246,7 +246,11 @@ link {
 
 .card-desc {
   padding: .5rem 2rem;
-  font-size: 1.6rem;
+  font-size: 1.7rem;
+}
+
+.card-desc:first-of-type {
+  padding-top: 0;
 }
 
 .scorekeeper {
