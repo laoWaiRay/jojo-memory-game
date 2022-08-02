@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/jojo-memory-game/static/css/main.5abc9275.css",
-    "main.js": "/jojo-memory-game/static/js/main.a72dac66.js",
+    "main.css": "/jojo-memory-game/static/css/main.972fa2f3.css",
+    "main.js": "/jojo-memory-game/static/js/main.3c3b0c59.js",
     "static/media/theWorld.gif": "/jojo-memory-game/static/media/theWorld.383c465000b68fb4fb81.gif",
     "static/media/darkBlueMoon.gif": "/jojo-memory-game/static/media/darkBlueMoon.530ad5d4ac26fe099b01.gif",
     "static/media/emperor.gif": "/jojo-memory-game/static/media/emperor.4dee08965b3d17cf4b30.gif",
@@ -67,11 +67,11 @@
     "static/media/tohth.png": "/jojo-memory-game/static/media/tohth.bfda673dead2fdcefb40.png",
     "static/media/strength.png": "/jojo-memory-game/static/media/strength.94d54d01ca778e6bb79c.png",
     "index.html": "/jojo-memory-game/index.html",
-    "main.5abc9275.css.map": "/jojo-memory-game/static/css/main.5abc9275.css.map",
-    "main.a72dac66.js.map": "/jojo-memory-game/static/js/main.a72dac66.js.map"
+    "main.972fa2f3.css.map": "/jojo-memory-game/static/css/main.972fa2f3.css.map",
+    "main.3c3b0c59.js.map": "/jojo-memory-game/static/js/main.3c3b0c59.js.map"
   },
   "entrypoints": [
-    "static/css/main.5abc9275.css",
-    "static/js/main.a72dac66.js"
+    "static/css/main.972fa2f3.css",
+    "static/js/main.3c3b0c59.js"
   ]
 }
