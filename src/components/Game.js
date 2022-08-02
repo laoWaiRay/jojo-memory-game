@@ -71,8 +71,10 @@ export default function Game() {
 
   const updateDisplay = (e) => {  
     if (isMobile) {
-      const displayedCards = getDisplayedCards();
-      setDisplayedCards(displayedCards);
+      if(e.detail === 2) {
+        const displayedCards = getDisplayedCards();
+        setDisplayedCards(displayedCards);
+      }
     } else {
       const displayedCards = getDisplayedCards();
       setDisplayedCards(displayedCards);
@@ -86,28 +88,30 @@ export default function Game() {
   useEffect(() => {
     const cards = document.querySelectorAll('.card');
     const checkIsSeen = function(e) {
-      const clickedCardName = this.name;
-      const seenStandNames = seenStands.map((stand) => stand.name);
+      if ((isMobile && e.detail === 2) || !isMobile) {
+        const clickedCardName = this.name;
+        const seenStandNames = seenStands.map((stand) => stand.name);
 
-      if (seenStandNames.includes(clickedCardName)) {
-        console.log('Already clicked!');
-        if (score > bestScore) {
-          setBestScore(score);
+        if (seenStandNames.includes(clickedCardName)) {
+          console.log('Already clicked!');
+          if (score > bestScore) {
+            setBestScore(score);
+          }
+          setScore(0);
+          setUnseenStands((unseenStands) => {
+            return [...unseenStands, ...seenStands];
+          })
+          setSeenStands([]);
+        } else {
+          const clickedCard = displayedCards.find((card) => card.name === clickedCardName)
+          setSeenStands((seenStands) => {
+            return [...seenStands, clickedCard]
+          });
+          setUnseenStands((unseenStands) => {
+            return unseenStands.filter((stand) => stand.name !== clickedCard.name)
+          })
+          setScore((score) => score + 1)
         }
-        setScore(0);
-        setUnseenStands((unseenStands) => {
-          return [...unseenStands, ...seenStands];
-        })
-        setSeenStands([]);
-      } else {
-        const clickedCard = displayedCards.find((card) => card.name === clickedCardName)
-        setSeenStands((seenStands) => {
-          return [...seenStands, clickedCard]
-        });
-        setUnseenStands((unseenStands) => {
-          return unseenStands.filter((stand) => stand.name !== clickedCard.name)
-        })
-        setScore((score) => score + 1)
       }
     }
 
@@ -117,13 +121,10 @@ export default function Game() {
 
     cards.forEach((card) => {
       card.name = card.querySelector('.card-heading--front').innerText;
-      console.log(card)
       if (isMobile) {
         card.addEventListener('click', toggleActive)
-        card.addEventListener('dblclick', checkIsSeen)
-      } else {
-        card.addEventListener('click', checkIsSeen)
-      }
+      } 
+      card.addEventListener('click', checkIsSeen)
     })
 
     // For mobile dragging
@@ -180,10 +181,8 @@ export default function Game() {
       cards.forEach((card) => {
         if (isMobile) {
           card.removeEventListener('click', toggleActive)
-          card.removeEventListener('dblclick', checkIsSeen)
-        } else {
-          card.removeEventListener('click', checkIsSeen)
-        }
+        } 
+        card.removeEventListener('click', checkIsSeen)
       })
       container.removeEventListener('touchstart', touchStart);
       container.removeEventListener('touchend', touchEnd);      
