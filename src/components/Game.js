@@ -107,12 +107,19 @@ export default function Game() {
       card.addEventListener('click', checkIsSeen)
     })
 
+    // For mobile dragging
+    const card0 = document.getElementById('card-0');
+    const card1 = document.getElementById('card-1');
+    const card2 = document.getElementById('card-2');
+    
     return () => {
       cards.forEach((card) => {
         card.removeEventListener('click', checkIsSeen)
       })
     }
   }, [displayedCards])
+
+  
 
   return (
     <div className='game-container'>
@@ -121,8 +128,9 @@ export default function Game() {
         bestScore={bestScore}
       />
       <div className='card-container'>
-        {displayedCards.map((card) => {
-          return <Card 
+        {displayedCards.map((card, index) => {
+          return <Card
+            id={'card-' + index} 
             onClick={updateDisplay}
             key={card.name}
             stand={card}

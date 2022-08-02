@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Card(props) {
   return (
-    <div className='card' onClick={props.onClick}>
+    <div className='card' id={props.id} onClick={props.onClick}>
       <div className='card-inner'>
         <div className='card-front'>
           <div className='img-wrapper'>

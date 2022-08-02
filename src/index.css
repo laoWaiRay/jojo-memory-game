@@ -13,7 +13,31 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 55%;
+}
+
+@media only screen and (max-width: 1600px) {
+  html {
+    font-size: 45%;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  html {
+    font-size: 30%;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  html {
+    font-size: 62.5%;
+  }
 }
 
 body {
@@ -111,15 +135,15 @@ link {
   justify-content: center;
   align-items: center;
   height: 90%;
+  padding: 3rem 0;
 }
 
 .card-container {
   width: 130rem;
-  height: 65rem;
   padding: 2rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-rows: 65rem;
   gap: 4rem;
 }
 
@@ -156,6 +180,7 @@ link {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 2rem;
+  border: 5px solid var(--dark-purple);
 }
 
 .card-front {
@@ -170,21 +195,21 @@ link {
 .img-wrapper {
   width: 100%;
   height: 85%;
-  
 }
 
 .card-front-img {
   width: 100%;
   height: 100%;
   object-fit:fill;
-  border-radius: 2rem 2rem 0 0;
+  border-radius: 1rem 1rem 0 0;
   
 }
 
 .gif-wrapper {
   width: 100%;
   height: 30%;
-  /* padding: 0 3rem; */
+  border-top: 3px solid var(--dark-purple);
+  border-bottom: 3px solid var(--dark-purple);
 }
 
 .gif {
@@ -197,6 +222,7 @@ link {
   justify-content: center;
   align-items: center;
   height: 15%;
+  border-top: 3px solid var(--dark-purple);
 }
 
 .card-back {
@@ -288,6 +314,70 @@ link {
   cursor: pointer;
 }
 
-/* .card-container {
-  transform: scale(.8);
-} */
+@media only screen and (max-width: 630px) {
+  html {
+    font-size: 62.5%;
+  }
+  
+  .header {
+    font-size: 1.6rem;
+    height: 15%;
+    padding: 1rem;
+  }
+
+  .header-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-logo,
+  .made-by-top {
+    margin-bottom: .5rem;
+  }
+
+  .show-instructions-btn {
+    margin: 0;
+  }
+
+  .scorekeeper{ 
+    margin: 0;
+    margin-bottom: 2rem;
+    padding: 0;
+  }
+
+  .game-container{
+    padding: 0;
+    height: 85%;
+  }
+
+  .card-container{
+    width: 85%;
+    height: 75%;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    overflow-y: hidden;
+  }
+
+  .card{
+    height: 100%;
+    min-width: 100%;
+    width: 100%;
+  }
+
+  #card-0 {
+    left: 0px;
+  }
+  #card-1 {
+    left: 20px;
+  }
+  #card-2 {
+    left: 40px;
+  }
+
+  .modal-inner {
+    height: 75%;
+    width: 90%;
+  }
+}
