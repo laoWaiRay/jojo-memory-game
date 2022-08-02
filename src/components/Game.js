@@ -110,12 +110,16 @@ export default function Game() {
         setScore((score) => score + 1)
       }
     }
+
+    const toggleActive = function(){
+      this.classList.toggle('active')
+    }
+
     cards.forEach((card) => {
       card.name = card.querySelector('.card-heading--front').innerText;
+      console.log(card)
       if (isMobile) {
-        card.addEventListener('click', () => {
-          card.classList.toggle('active')
-        })
+        card.addEventListener('click', toggleActive)
         card.addEventListener('dblclick', checkIsSeen)
       } else {
         card.addEventListener('click', checkIsSeen)
@@ -126,18 +130,17 @@ export default function Game() {
     const card0 = document.getElementById('card-0');
     const card1 = document.getElementById('card-1');
     const card2 = document.getElementById('card-2');
-    const cardElements = [card0, card1, card2];
-
     const container = document.querySelector('.card-container');
 
     let touchstartX = 0
     let touchendX = 0
     let currentCard = card0;
+
+    if(card0) card0.scrollIntoView({behavior: "smooth"});
         
     function checkDirection() {
       if (touchendX < touchstartX) {
         console.log('swiped left!')
-        console.log(container.scrollLeft)
         if (currentCard === card0) {
           card1.scrollIntoView({behavior: "smooth"})
           currentCard = card1;
@@ -145,7 +148,6 @@ export default function Game() {
           card2.scrollIntoView({behavior: "smooth"})
           currentCard = card2
         }
-
       };
       if (touchendX > touchstartX) {
         console.log('swiped right!')
@@ -176,11 +178,15 @@ export default function Game() {
     
     return () => {
       cards.forEach((card) => {
-        card.removeEventListener('click', checkIsSeen)
+        if (isMobile) {
+          card.removeEventListener('click', toggleActive)
+          card.removeEventListener('dblclick', checkIsSeen)
+        } else {
+          card.removeEventListener('click', checkIsSeen)
+        }
       })
       container.removeEventListener('touchstart', touchStart);
-
-      container.removeEventListener('touchend', touchEnd);
+      container.removeEventListener('touchend', touchEnd);      
     }
   }, [displayedCards])
 
