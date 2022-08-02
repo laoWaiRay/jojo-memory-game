@@ -132,25 +132,30 @@ export default function Game() {
 
     let touchstartX = 0
     let touchendX = 0
-    let currentCardElementIndex = 0;
+    let currentCard = card0;
         
     function checkDirection() {
-      if (touchendX < touchstartX && Math.abs(touchendX - touchstartX) > 1) {
+      if (touchendX < touchstartX) {
         console.log('swiped left!')
-        if(currentCardElementIndex < 2) {
-          currentCardElementIndex++;
+        console.log(container.scrollLeft)
+        if (currentCard === card0) {
+          card1.scrollIntoView({behavior: "smooth"})
+          currentCard = card1;
+        } else if (currentCard === card1) {
+          card2.scrollIntoView({behavior: "smooth"})
+          currentCard = card2
         }
-        let nextCardElement = cardElements[currentCardElementIndex];
-        console.log(nextCardElement)
-        nextCardElement.scrollIntoView({behavior: "smooth"})
+
       };
-      if (touchendX > touchstartX && Math.abs(touchendX - touchstartX) > 1) {
+      if (touchendX > touchstartX) {
         console.log('swiped right!')
-        if(currentCardElementIndex > 0) {
-          currentCardElementIndex--;
+        if (currentCard === card2) {
+          card1.scrollIntoView({behavior: "smooth"})
+          currentCard = card1;
+        } else if (currentCard === card1) {
+          card0.scrollIntoView({behavior: "smooth"})
+          currentCard = card0
         }
-        let nextCardElement = cardElements[currentCardElementIndex];
-        nextCardElement.scrollIntoView({behavior: "smooth"})
       }
     }
 
