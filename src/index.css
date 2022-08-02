@@ -405,6 +405,12 @@ link {
   .modal-inner {
     height: 80%;
     width: 90%;
+    font-size: 1.8rem;
+  }
+  
+  .modal-close-btn {
+    top: 2rem;
+    right: 2rem;
   }
 
   .main {
