@@ -23,9 +23,18 @@ export default function Modal(props) {
       <button className='modal-close-btn' onClick={props.toggleModal}>X</button>
       <h1>How to play:</h1>
       <p>This is a memory game based on the popular manga series <a className='text-link' href='https://en.wikipedia.org/wiki/JoJo%27s_Bizarre_Adventure'>JoJo's Bizarre Adventure</a>, written and illustrated by <a href='https://en.wikipedia.org/wiki/Hirohiko_Araki' className='text-link'>Hirohiko Araki</a>. The stands included are from seasons 1-3 of the anime adaptation.</p>
-      <p>Hover over the cards to view details about each particular stand.</p>
-      <p>Each time you click on a card, 3 new cards will appear. Be careful however, as if you click on the same stand twice, your score will reset!</p>
-      <p style={style}>(THIS MUST BE THE WORK OF AN ENEMY STAND ゴ ゴゴ ゴ ゴゴ ゴ)</p>
+
+      {props.isMobile === false ? <>
+        <p>Hover over the cards to view details about each particular stand.</p>
+        <p>Each time you click on a card, 3 new cards will appear. Be careful however, as if you click on the same stand twice, your score will reset!</p>
+        </> :
+        <>
+        <p>Tap card to flip</p>
+        <p>Double tap to choose a card</p>
+        <p>Swipe cards to show more (up to 3 at a time)</p>
+        <p>Each newly tapped card = 1 point; Tapping an already tapped card resets score</p>
+        </>
+      }
      </div>
     </div>
   )

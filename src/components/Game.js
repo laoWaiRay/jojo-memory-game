@@ -20,6 +20,9 @@ const gifs = importAll(requiredGifs);
 
 /* ---------------------------------------------------------------------------- */
 
+
+//TO DO: Change mobile double clicks to something more native to mobile
+
 export default function Game() {
   console.log('re-rendering')
 

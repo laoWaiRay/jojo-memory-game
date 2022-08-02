@@ -7,6 +7,7 @@ import Modal from './components/Modal';
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   const toggleModal = (e) => {
     e.stopPropagation();
@@ -18,12 +19,14 @@ const App = () => {
       {isModalOpen ?  
        <Modal
         toggleModal={toggleModal}
+        isMobile={isMobile}
        /> : null
       }
       <Header
         toggleModal={toggleModal}
       />
       <Game/>
+      <i className="fa-solid fa-angles-up" onClick={() => {window.scrollTo({top: 0, left: 0, behavior: "smooth"})}}/>
     </div>
   )
 }
