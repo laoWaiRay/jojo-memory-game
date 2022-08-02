@@ -71,10 +71,8 @@ export default function Game() {
 
   const updateDisplay = (e) => {  
     if (isMobile) {
-      if (e.detail === 2) {
-        const displayedCards = getDisplayedCards();
-        setDisplayedCards(displayedCards);
-      }
+      const displayedCards = getDisplayedCards();
+      setDisplayedCards(displayedCards);
     } else {
       const displayedCards = getDisplayedCards();
       setDisplayedCards(displayedCards);
@@ -93,7 +91,9 @@ export default function Game() {
 
       if (seenStandNames.includes(clickedCardName)) {
         console.log('Already clicked!');
-        setBestScore(score);
+        if (score > bestScore) {
+          setBestScore(score);
+        }
         setScore(0);
         setUnseenStands((unseenStands) => {
           return [...unseenStands, ...seenStands];
